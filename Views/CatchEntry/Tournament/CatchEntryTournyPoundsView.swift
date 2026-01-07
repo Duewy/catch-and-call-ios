@@ -9,6 +9,7 @@ import SwiftUI
 import Foundation
 internal import _LocationEssentials
 
+
 // MARK: - Formatting Helpers
 private enum LbsFmt {
     static func split(totalHundredths: Int) -> (real: Int, dec: Int) {
@@ -27,6 +28,9 @@ private struct PoundsDisplayRow: Identifiable, Equatable {
 
 // MARK: - Main View
 struct CatchEntryTournamentPoundsView: View {
+
+
+    
     @EnvironmentObject var settings: SettingsStore
 
     // Rows rendered in the 6 tournament lanes
@@ -183,6 +187,7 @@ struct CatchEntryTournamentPoundsView: View {
         }
         .frame(maxWidth: .infinity)
         .padding(.bottom, 4)
+        
     }
 
     // ---- Tournament Lanes as a List (supports swipe actions) ----

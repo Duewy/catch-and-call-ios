@@ -46,6 +46,9 @@ struct SetUpView: View {
     @State private var toastText: String = ""
     @State private var showToast: Bool = false
     
+    @State private var suppressVoiceToggle = false
+
+    
     private func pushToast(_ msg: String, hideAfter seconds: Double = 2.0) {
         toastText = msg
         withAnimation(.spring(response: 0.35, dampingFraction: 0.9)) {
@@ -277,15 +280,35 @@ struct SetUpView: View {
                         }
                     }
                     
-                    // --- VCC Button -------
-                    pillToggle(title: voiceEnabled ? "VCC Enabled" : "VCC Disabled",
+                    // --- VC Button -------
+                    pillToggle(title: voiceEnabled ? "VC Enabled" : "VC Disabled",
                                isOn: $voiceEnabled, enabled: true)
                     .onChange(of: voiceEnabled) { newValue in
-                        settings.voiceControlEnabled = newValue   // <-- use the real SettingsStore property
-                        pushToast(newValue
-                                  ? "  Voice Control Enabled 🎤 \n You can use voice commands."
-                                  : "  Voice Control Disabled🚫 \n Manual Mode only.")
+                        // 🚫 Ignore programmatic resets
+                        if suppressVoiceToggle {
+                            suppressVoiceToggle = false
+                            return
+                        }
+
+                        if newValue {
+                            BluetoothValidation.hasValidBluetoothMic { hasMic in
+                                if hasMic {
+                                    settings.voiceControlEnabled = true
+                                    pushToast("Voice Control Enabled 🎤\nBluetooth device ready.")
+                                } else {
+                                    suppressVoiceToggle = true
+                                    voiceEnabled = false
+                                    settings.voiceControlEnabled = false
+                                    pushToast("No Bluetooth Device detected 🚫\nPlease connect a headset.")
+                                }
+                            }
+
+                        } else {
+                            settings.voiceControlEnabled = false
+                            pushToast("Voice Control Disabled 🚫\nManual Mode only.")
+                        }
                     }
+
                 }
                 
                 Divider().padding(.vertical, 1)

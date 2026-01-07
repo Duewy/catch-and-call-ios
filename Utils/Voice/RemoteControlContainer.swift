@@ -6,3 +6,19 @@
 //
 
 import Foundation
+import SwiftUI
+
+struct RemoteControlContainer: UIViewControllerRepresentable {
+
+    let onPlayPause: () -> Void
+
+    func makeUIViewController(context: Context) -> RemoteControlHost {
+        let vc = RemoteControlHost()
+        vc.onPlayPause = onPlayPause
+        return vc
+    }
+
+    func updateUIViewController(_ uiViewController: RemoteControlHost, context: Context) {
+        uiViewController.onPlayPause = onPlayPause
+    }
+}

@@ -13,40 +13,67 @@ struct VCCPracticeSelectView: View {
     let onSelect: (PracticePhrase) -> Void
 
     // MARK: - Local State
-    @State private var phrases: [PracticePhrase] = VoicePhraseList.practicePhrases
+    private var phrases: [PracticePhrase] {
+        VoicePhraseList.practicePhrases
+    }
+
 
     var body: some View {
+        VStack(spacing: 0) {
 
-        List {
-            ForEach(phrases) { phrase in
-                Button {
-                    print("🟢 Practice phrase selected:", phrase.text)
-                    onSelect(phrase)
-                } label: {
-                    HStack {
-                        Text(phrase.text)
-                            .font(.system(size: 18, weight: .bold))
-                            .foregroundColor(.black)
+            // MARK: - Header
+            VStack(spacing: 6) {
 
-                        Spacer()
+                // Centered title block
+                VStack(spacing: 2) {
+                    Text("Select Practice")
+                        .font(.title2)
+                        .fontWeight(.bold)
 
-                        if phrase.isMastered {
+                    Text("Word / Phrase")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
+
+                // Left-aligned helper text
+                Text("  indicator changes from yellow to green\n  upon mastery of speech recognition")
+                    .font(.footnote)
+                    .fontWeight(.light)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding(.vertical, 12)
+
+
+            // MARK: - Phrase List
+            List {
+                ForEach(phrases) { phrase in
+                    Button {
+                        print("🟢 Practice phrase selected:", phrase.text)
+                        onSelect(phrase)
+                    } label: {
+                        HStack {
+
                             Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(.green)
+                                .foregroundColor(phrase.progressColor)
+
+                            Text(" ")   // little spacer
+                            Text(phrase.text)
+                                .font(.system(size: 22, weight: .bold))
+                                .foregroundColor(.primary)
                         }
+                        .padding(.vertical, 6)
                     }
-                    .padding(.vertical, 8)
+                    .listRowBackground(Color.softlockSand)
                 }
             }
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)   // ← VERY IMPORTANT for Lists
         }
-        .navigationTitle("Select Practice Word / Phrase")
-        .listStyle(.plain)
-        .background(Color.softlockSand)
-        .onAppear {
-            print("📺 VCCPracticeSelectView appeared")
-        }
-    }
-}
+        .background(Color.ltBrown.edgesIgnoringSafeArea(.all))         // ← PAGE BACKGROUND
+    }//==== END == Body =====
+      
+}// === END ==== VCC Practice Select =========
 
 #Preview {
     NavigationStack {

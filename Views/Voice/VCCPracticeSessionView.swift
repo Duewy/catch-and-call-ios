@@ -190,6 +190,7 @@ struct VCCPracticeSessionView: View {
 
     // MARK: - Training Logic
 
+    //------------- Start Training Speach Button Pressed --------
     private func startTraining() {
         guard let phrase = selectedPhrase else { return }
 
@@ -203,6 +204,14 @@ struct VCCPracticeSessionView: View {
         print("🟢 Start Training button tapped")
     }
 
+    // --------- normalize text to avoid mismatching ---------
+    private func normalize(_ text: String) -> String {
+        text
+            .lowercased()
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    //-------- Evaluate word phrase -------------------
     private func evaluate(_ recognizedText: String, phrase: PracticePhrase) {
 
         let requiredKeywords = phrase.text
@@ -219,8 +228,56 @@ struct VCCPracticeSessionView: View {
 
         didPass = passed
         isEvaluated = true
+
+        if passed {
+            handlePracticeSuccess(for: phrase)
+        } else {
+            handlePracticeFailure(for: phrase, spoken: recognizedText)
+        }
     }
-}
+    
+    // ---------- Practice Success Counter -------------------
+    private func handlePracticeSuccess(for phrase: PracticePhrase) {
+
+        updatePhrase(phrase) { updated in
+            updated.successCount += 1
+            updated.failureCount = 0
+            updated.recentFailures = 0
+
+            if updated.successCount >= PracticePhrase.masteredThreshold {
+                updated.isMastered = true
+            }
+        }
+    }
+    
+    //------ Practice Failures Counter ---------------
+    private func handlePracticeFailure(for phrase: PracticePhrase, spoken: String) {
+
+        updatePhrase(phrase) { updated in
+            updated.failureCount += 1
+            updated.recentFailures += 1
+            updated.lastMisheardInput = spoken
+        }
+    }
+
+    //----- Update Phrase Mastery -----------
+    private func updatePhrase(
+        _ phrase: PracticePhrase,
+        mutate: (inout PracticePhrase) -> Void
+    ) {
+        guard let index = VoicePhraseList.practicePhrases
+            .firstIndex(where: { $0.id == phrase.id }) else {
+            return
+        }
+
+        mutate(&VoicePhraseList.practicePhrases[index])
+
+        // Keep local selection in sync
+        selectedPhrase = VoicePhraseList.practicePhrases[index]
+    }
+
+
+}// ===== END ===== VCC Pracitce Session ===================
 
 #Preview {
     NavigationStack {

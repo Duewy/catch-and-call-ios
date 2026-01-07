@@ -146,7 +146,7 @@ final class VoiceManager: ObservableObject {
 
 
         // 🔒 FORCE FINALIZATION (important)
-        let workItem = DispatchWorkItem { [weak self] in
+    /*    let workItem = DispatchWorkItem { [weak self] in
             guard let self else { return }
             if self.isListening && !self.didReceiveResult {
                 print("⏱️ forcing speech end after timeout (no result yet)")
@@ -155,7 +155,7 @@ final class VoiceManager: ObservableObject {
         }
         timeoutWorkItem = workItem
         DispatchQueue.main.asyncAfter(deadline: .now() + 7.0, execute: workItem)
-
+     */
     }
 
     // MARK: - Stop & Cleanup
@@ -201,35 +201,29 @@ final class VoiceManager: ObservableObject {
     }
 
     // MARK: - Audio Session
-
+    
     private func configureAudioSession() throws {
         let session = AVAudioSession.sharedInstance()
 
         try session.setCategory(
             .playAndRecord,
-            mode: .default,
+            mode: .voiceChat,
             options: [
-                .defaultToSpeaker,
-                .allowBluetoothHFP
+                .allowBluetoothHFP    // ✅ correct, non-deprecated
             ]
         )
+
+        // 🔑 Bluetooth HFP microphones are 16 kHz mono
+        try session.setPreferredSampleRate(16_000)
 
         try session.setActive(true, options: .notifyOthersOnDeactivation)
 
         print("🎚️ audio session activated")
-
-        // 🔍 LOG ROUTING
         print("🎤 available inputs:", session.availableInputs ?? [])
         print("🎧 current route:", session.currentRoute)
-
-        // 🎯 Prefer built-in mic when no Bluetooth
-        if let builtInMic = session.availableInputs?.first(where: {
-            $0.portType == .builtInMic
-        }) {
-            try? session.setPreferredInput(builtInMic)
-            print("🎤 preferred input set to built-in mic")
-        }
     }
+
+
 
     private func deactivateAudioSession() {
         let session = AVAudioSession.sharedInstance()

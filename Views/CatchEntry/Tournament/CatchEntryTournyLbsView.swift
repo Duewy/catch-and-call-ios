@@ -35,6 +35,14 @@ private struct LbsDisplayRow: Identifiable, Equatable {
 // MARK: --- Main View ---------
 
 struct CatchEntryTournamentLbsView: View {
+    
+    @StateObject private var voiceCoordinator =
+        VoiceSessionCoordinator(voiceManager: VoiceManager())
+    
+    @AppStorage("voiceEnabled") private var voiceEnabled = true
+    @State private var toastText: String? = nil
+
+    
     @EnvironmentObject var settings: SettingsStore
 
     @State private var rows: [LbsDisplayRow] = []
@@ -77,9 +85,15 @@ struct CatchEntryTournamentLbsView: View {
 
     var body: some View {
         ScrollView {
+            
+            RemoteControlContainer {
+                voiceCoordinator.startTournamentSession()
+            }
+            .frame(width: 0, height: 0)
+
             VStack(alignment: .leading, spacing: 8) {
                 header
-                addCatchButton
+                addCatchButtonRow
                 lanes
                 totals
                 statusBar
@@ -89,6 +103,18 @@ struct CatchEntryTournamentLbsView: View {
             .padding(.top, 8)
         }
         .background(Color.softlockGreen.ignoresSafeArea())
+        .overlay(       // For the Toast Popup
+            Group {
+                if let toastText {
+                    VStack {
+                        ToastBanner(text: toastText)
+                        Spacer()
+                    }
+                    .padding(.top, 12)
+                    .transition(.opacity)
+                }
+            }
+        )
 
         // --- ADD sheet --------
         .sheet(isPresented: $showAdd) {
@@ -124,9 +150,27 @@ struct CatchEntryTournamentLbsView: View {
                 secondaryButton: .cancel()
             )
         }
+        
+        
+        .onAppear {
+            print("🎣 Tournament Lbs View appeared")
+            // Always refresh data
+            refreshFromDB()
+
+            // Enable VC if allowed
+            if settings.voiceControlEnabled {
+                SilentAudioAnchor.shared.start()
+                VCRemoteTransport.bindPlayPause {
+                    voiceCoordinator.startTournamentSession()
+                }
+            }
+        }
+        .onDisappear {
+            VCRemoteTransport.unbind()
+            SilentAudioAnchor.shared.stop()
+        }
 
         // Data flow
-        .onAppear(perform: refreshFromDB)
         .onChange(of: showAdd) { isOpen in if !isOpen { refreshFromDB() } }
         .onChange(of: settings.tournamentLimit) { _ in maybeBlinkOnChange() }
         .onChange(of: topN.map { $0.id }) { _ in maybeBlinkOnChange() }
@@ -167,25 +211,36 @@ struct CatchEntryTournamentLbsView: View {
 
 
     //--- ADD Catch Button ---
-    private var addCatchButton: some View {
-        Button { showAdd = true } label: {
-            Text("ADD CATCH")
-                .font(.system(size: 24, weight: .bold))
-                .foregroundStyle(Color.clipWhite)
-                .padding(.horizontal, 40)
-                .padding(.vertical, 14)
-                .background(
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(Color.softlockBlue)
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.black, lineWidth: 3)  // <-- border line
-                )
+    private var addCatchButtonRow: some View {
+        HStack(spacing: 12) {
+            
+            // --- ADD CATCH (manual) ---
+            Button { showAdd = true } label: {
+                Text("ADD CATCH")
+                    .font(.system(size: 22, weight: .bold))
+                    .foregroundStyle(Color.clipWhite)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 14)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.softlockBlue)
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.black, lineWidth: 3)
+                    )
+            }
         }
-        .frame(maxWidth: .infinity)
-        .padding(.bottom, 4)
-    }//---------------------------------
+            .padding(.horizontal, 45)
+            .padding(.bottom, 4)
+        }
+//---------------------------------
+    private func showToast(_ text: String) {
+        withAnimation { toastText = text }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            withAnimation { toastText = nil }
+        }
+    }
 
     // ---- Tournament Lanes as a List (supports swipe actions) ----
     private var lanes: some View {
