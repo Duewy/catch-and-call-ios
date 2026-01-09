@@ -1,13 +1,14 @@
 //  UserSelectedClipColors.swift
 //  CatchAndCall
 //
-//  Central place for clip color mapping + (later) user-selected clip orders.
+//  Central place for clip color mapping order and color value
 
 import SwiftUI
 
 enum ClipColorUtils {
 
-    // --- Default clip order (for tournaments, Fun Day, etc.) ---
+    // --- Default clip order ---
+    // Color Order is arranged to best assist Visually/Color Impared
     static let defaultOrder: [String] = [
         "BLUE",
         "YELLOW",
@@ -19,8 +20,6 @@ enum ClipColorUtils {
 
     // MARK: - Active clip order (future: load from user prefs)
     static func activeClipOrder() -> [String] {
-        // Later: read from UserDefaults or SharedPreferences equivalent.
-        // For now, always return the default order.
         return defaultOrder
     }
 
@@ -44,9 +43,4 @@ enum ClipColorUtils {
         name.uppercased() == "BLUE" ? .white : .black
     }
 
-    // MARK: - (Later) saving user-selected clip order
-
-    // static func saveActiveClipOrder(_ order: [String]) { ... }
-    // When you build the Clip Color Setup page, you can implement this
-    // to persist the user’s chosen order (max 6 colors).
 }
