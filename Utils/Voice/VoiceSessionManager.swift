@@ -12,7 +12,8 @@ import MediaPlayer
 
 @MainActor
 final class VoiceSessionManager: ObservableObject {
-
+    static let shared = VoiceSessionManager()
+    
     enum State {
         case idle
         case armed
@@ -26,6 +27,7 @@ final class VoiceSessionManager: ObservableObject {
     private let speaker = SpeechOutputService()
 
     init() {
+        print("VoiceSessionManager initialized")
         configureAudioSession()
         beginReceivingRemoteCommands()
     }
@@ -52,6 +54,7 @@ final class VoiceSessionManager: ObservableObject {
     // MARK: - Voice Flow
 
     private func startListening() {
+        print("Starting to listen")
         state = .listening
         speaker.speak("Say your catch. Over.") {
             self.speech.startListening { transcript in
@@ -61,16 +64,16 @@ final class VoiceSessionManager: ObservableObject {
     }
 
     private func stopListening() {
+        print("Stopping to listen")
         speech.stopListening()
         state = .armed
     }
 
     private func handleTranscript(_ raw: String) {
+        print("Received transcript: \(raw)")
         let trimmed = trimAfterOver(raw)
-
-        // TODO: hook in your parser here
-        // parseCatch(trimmed)
-
+        _ = trimmed   // placeholder until parser is wired
+        speech.stopListening() 
         state = .confirming
         speaker.speak("Is that correct? Say yes over or no over.") {
             self.speech.startListening { confirm in
@@ -79,9 +82,11 @@ final class VoiceSessionManager: ObservableObject {
         }
     }
 
-    private func handleConfirmation(_ text: String) {
-        let clean = text.lowercased()
 
+    private func handleConfirmation(_ text: String) {
+        print("Received confirmation: \(text)")
+        let clean = text.lowercased()
+        speech.stopListening()
         if clean.contains("yes") {
             // TODO: save catch
             speaker.speak("Catch saved. Over and out.")
@@ -109,12 +114,14 @@ final class VoiceSessionManager: ObservableObject {
         try? session.setCategory(
             .playAndRecord,
             mode: .voiceChat,
-            options: [.allowBluetooth, .allowBluetoothA2DP]
+            options: [.allowBluetoothHFP]
         )
         try? session.setActive(true)
     }
 
+
     private func beginReceivingRemoteCommands() {
+        print("Beginning to receive remote commands")
         let center = MPRemoteCommandCenter.shared()
 
         center.playCommand.isEnabled = true

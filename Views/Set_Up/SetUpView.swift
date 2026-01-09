@@ -335,6 +335,7 @@ struct SetUpView: View {
                     // keep store in sync (UI pills still reset to white via your onAppear)
                     settings.measureMode = measureMode.isEmpty ? settings.measureMode : measureMode
                     settings.dayType     = dayType.isEmpty     ? settings.dayType     : dayType
+                    armVoiceControlIfNeeded()   // Starts the Voice Control Code
                 })
                 
                 
@@ -382,6 +383,7 @@ struct SetUpView: View {
                 .padding(.bottom, 24)
             
                 .onAppear { // --- REFRESH Data Everytime Opened ----
+                    print("🔄 Setting Up View - onAppear")
                     resetSelectionsForFreshOpen()
                     speciesList = SpeciesStorage.loadOrderedSpeciesList()
                     // 🔒 Ensure tournamentSpecies is valid
@@ -518,6 +520,36 @@ struct SetUpView: View {
             }
         }
     }
+    
+    private func armVoiceControlIfNeeded() {
+
+        // VC only arms if the user explicitly enabled it
+        guard settings.voiceControlEnabled else { return }
+
+        // VC only arms for active CatchEntry flows
+        if settings.dayType == "tournament",
+           settings.measureMode == "lbs_oz" {
+            print("VC: Arming for Tournament lbs_oz")
+            VoiceSessionManager.shared.armVoiceControl()
+            VoiceControlManager.shared.start(
+                mode: .tournament,
+                measurement: .lbsOzs
+            )
+        }
+
+        if settings.dayType == "fun",
+           settings.measureMode == "lbs_oz" {
+
+            VoiceControlManager.shared.start(
+                mode: .funDay,
+                measurement: .lbsOzs
+            )
+        }
+
+        // You’ll expand this later for other measurement modes
+    }
+
+
 
 
 }//==== END === SetUpView  ===========

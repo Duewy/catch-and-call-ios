@@ -15,10 +15,13 @@ struct RemoteControlContainer: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> RemoteControlHost {
         let vc = RemoteControlHost()
         vc.onPlayPause = onPlayPause
+        print("🎧makeUIViewController")
         return vc
+
     }
 
     func updateUIViewController(_ uiViewController: RemoteControlHost, context: Context) {
         uiViewController.onPlayPause = onPlayPause
+        print("🎧updateUIViewController")
     }
 }

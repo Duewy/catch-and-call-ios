@@ -85,11 +85,6 @@ struct CatchEntryTournamentLbsView: View {
 
     var body: some View {
         ScrollView {
-            
-            RemoteControlContainer {
-                voiceCoordinator.startTournamentSession()
-            }
-            .frame(width: 0, height: 0)
 
             VStack(alignment: .leading, spacing: 8) {
                 header
@@ -156,24 +151,22 @@ struct CatchEntryTournamentLbsView: View {
             print("🎣 Tournament Lbs View appeared")
             // Always refresh data
             refreshFromDB()
-
-            // Enable VC if allowed
-            if settings.voiceControlEnabled {
-                SilentAudioAnchor.shared.start()
-                VCRemoteTransport.bindPlayPause {
-                    voiceCoordinator.startTournamentSession()
-                }
-            }
         }
         .onDisappear {
-            VCRemoteTransport.unbind()
-            SilentAudioAnchor.shared.stop()
+            VoiceControlManager.shared.stop()
+        }
+
+        .onReceive(NotificationCenter.default.publisher(for: .remotePlayPausePressed)) { _ in
+            guard settings.voiceControlEnabled else { return }
+            guard !showAdd, editingItem == nil else { return }   // don’t talk over sheets
+            voiceCoordinator.startTournamentSession()
         }
 
         // Data flow
         .onChange(of: showAdd) { isOpen in if !isOpen { refreshFromDB() } }
         .onChange(of: settings.tournamentLimit) { _ in maybeBlinkOnChange() }
         .onChange(of: topN.map { $0.id }) { _ in maybeBlinkOnChange() }
+        .voiceEnabledCatchEntry {voiceCoordinator.startTournamentSession()}
     }
 
 

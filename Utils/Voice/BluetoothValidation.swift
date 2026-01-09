@@ -14,7 +14,7 @@ enum BluetoothValidation {
 
     static func hasValidBluetoothMic(completion: @escaping (Bool) -> Void) {
         let session = AVAudioSession.sharedInstance()
-
+            print("Checking mic permissions")
         // 1️⃣ Ensure mic permission
         switch AVAudioSession.sharedInstance().recordPermission {
         case .granted:
@@ -47,7 +47,7 @@ enum BluetoothValidation {
             try session.setCategory(
                 .playAndRecord,
                 mode: .voiceChat,
-                options: [.allowBluetooth]
+                options: [.allowBluetoothHFP]
             )
             try session.setActive(true)
 
@@ -76,7 +76,7 @@ enum VCRemoteTransport {
 
     static func bindPlayPause(start: @escaping () -> Void) {
         UIApplication.shared.beginReceivingRemoteControlEvents()
-
+        print("🎧 Setting up remote play/pause")
         // ✅ Tell iOS "we are the now playing app"
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
             MPMediaItemPropertyTitle: "Catch & Call Voice Control",

@@ -1,14 +1,7 @@
-//
-//  SpeechOutputService.swift
-//  CatchAndCall
-//
-//  Created by Dwayne Brame on 2026-01-07.
-//
-
 import Foundation
 import AVFoundation
 
-final class SpeechOutputService: NSObject, AVSpeechSynthesizerDelegate {
+final class SpeechOutputService: NSObject, AVSpeechSynthesizerDelegate, @unchecked Sendable {
 
     private let synthesizer = AVSpeechSynthesizer()
     private var onFinish: (() -> Void)?
@@ -18,18 +11,27 @@ final class SpeechOutputService: NSObject, AVSpeechSynthesizerDelegate {
         synthesizer.delegate = self
     }
 
+    /// Speak text (always hops to MainActor)
     func speak(_ text: String, completion: (() -> Void)? = nil) {
-        onFinish = completion
-        let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        synthesizer.speak(utterance)
+        Task { @MainActor in
+            self.onFinish = completion
+            print("Speaking: \(text)")
+            let utterance = AVSpeechUtterance(string: text)
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+
+            self.synthesizer.speak(utterance)
+        }
     }
 
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        let cb = onFinish
-        onFinish = nil
-        cb?()
+    /// Obj-C delegate callback (nonisolated by definition)
+    nonisolated func speechSynthesizer(
+        _ synthesizer: AVSpeechSynthesizer,
+        didFinish utterance: AVSpeechUtterance
+    ) {
+        Task { @MainActor in
+            let cb = self.onFinish
+            self.onFinish = nil
+            cb?()
+        }
     }
 }
-
-
