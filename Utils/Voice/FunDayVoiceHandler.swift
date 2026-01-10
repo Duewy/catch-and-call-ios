@@ -2,7 +2,35 @@
 //  FunDayVoiceHandler.swift
 //  CatchAndCall
 //
-//  Created by Dwayne Brame on 2026-01-10.
+//  Stub handler for Fun Day voice sessions.
+//  Real logic will be added later.
 //
 
 import Foundation
+
+@MainActor
+final class FunDayVoiceHandler {
+
+    private unowned let coordinator: VoiceSessionCoordinator
+    private let voiceManager: VoiceManager
+    private let tts: SpeechOutputService
+
+    init(
+        coordinator: VoiceSessionCoordinator,
+        voiceManager: VoiceManager,
+        tts: SpeechOutputService
+    ) {
+        self.coordinator = coordinator
+        self.voiceManager = voiceManager
+        self.tts = tts
+    }
+
+    func start() {
+        print("🎣 FunDayVoiceHandler.start() (stub)")
+        coordinator.transition(to: .listening)
+    }
+
+    func shutdown() {
+        print("🎣 FunDayVoiceHandler.shutdown() (stub)")
+    }
+}

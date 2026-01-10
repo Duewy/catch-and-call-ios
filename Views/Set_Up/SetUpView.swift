@@ -530,7 +530,7 @@ struct SetUpView: View {
         if settings.dayType == "tournament",
            settings.measureMode == "lbs_oz" {
             print("VC: Arming for Tournament lbs_oz")
-            VoiceSessionManager.shared.armVoiceControl()
+            // VoiceSessionManager.shared.armVoiceControl() "Duplication?"
             VoiceControlManager.shared.start(
                 mode: .tournament,
                 measurement: .lbsOzs

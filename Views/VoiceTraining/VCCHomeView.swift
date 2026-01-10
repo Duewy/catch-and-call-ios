@@ -9,7 +9,10 @@ import Foundation
 import SwiftUI
 
 struct VCCHomeView: View {
-
+    
+    @StateObject private var voiceCoordinator =
+           VoiceSessionCoordinator(voiceManager: VoiceManager())
+    
     var body: some View {
 
         VStack(spacing: 20) {
@@ -43,7 +46,7 @@ struct VCCHomeView: View {
 
             // Practice VCC
             NavigationLink {
-                VCCPracticeSessionView()
+                VCCPracticeSessionView(coordinator: voiceCoordinator)
             } label: {
                 Text("Practice with VCC")
                     .font(.system(size: 20, weight: .bold))

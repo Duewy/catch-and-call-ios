@@ -5,12 +5,14 @@
 //  Voice Training Session Screen
 //
 
+import Foundation
 import SwiftUI
+import Combine
 
 struct VCCPracticeSessionView: View {
 
     // MARK: - Voice Engine
-    @StateObject private var voiceManager = VoiceManager()
+    @ObservedObject var coordinator: VoiceSessionCoordinator
 
     // MARK: - Training State
     @State private var selectedPhrase: PracticePhrase? = nil
@@ -87,7 +89,7 @@ struct VCCPracticeSessionView: View {
             // =========================
             // Listening Indicator
             // =========================
-            if voiceManager.isListening {
+            if coordinator.isListening {
                 Text("listening…")
                     .font(.headline)
                     .foregroundColor(.blue)
@@ -96,13 +98,13 @@ struct VCCPracticeSessionView: View {
             // =========================
             // Live Transcription
             // =========================
-            if !voiceManager.liveTranscription.isEmpty {
+            if !coordinator.isListening && !coordinator.liveTranscription.isEmpty {
                 VStack(spacing: 4) {
                     Text("hearing:")
                         .font(.subheadline)
                         .foregroundColor(.gray)
 
-                    Text(voiceManager.liveTranscription)
+                    Text(coordinator.liveTranscription)
                         .font(.body)
                         .foregroundColor(.blue)
                         .multilineTextAlignment(.center)
@@ -112,7 +114,7 @@ struct VCCPracticeSessionView: View {
             // =========================
             // Final Result
             // =========================
-            if let heard = voiceManager.lastRecognizedText {
+            if let heard = coordinator.lastRecognizedText {
                 VStack(spacing: 4) {
                     Text("we heard:")
                         .font(.subheadline)
@@ -149,7 +151,7 @@ struct VCCPracticeSessionView: View {
                     .foregroundColor(.black)
                     .cornerRadius(12)
             }
-            .disabled(selectedPhrase == nil || voiceManager.isListening)
+            .disabled(selectedPhrase == nil || coordinator.isListening)
             .padding(.horizontal)
 
             // =========================
@@ -166,7 +168,7 @@ struct VCCPracticeSessionView: View {
         .navigationTitle("Practice")
                 
         .task {
-            await voiceManager.requestPermissions()
+            await coordinator.requestPermissions()
         }
         .onAppear {
             print("📺 VCCPracticeSessionView appeared")
@@ -197,9 +199,11 @@ struct VCCPracticeSessionView: View {
         isEvaluated = false
         didPass = false
 
-        voiceManager.startTrainingListen { recognizedText in
+        coordinator.startSession(mode: .practice)
+        coordinator.startListening { recognizedText in
             evaluate(recognizedText, phrase: phrase)
         }
+
 
         print("🟢 Start Training button tapped")
     }
@@ -281,6 +285,10 @@ struct VCCPracticeSessionView: View {
 
 #Preview {
     NavigationStack {
-        VCCPracticeSessionView()
+        VCCPracticeSessionView(
+            coordinator: VoiceSessionCoordinator(
+                voiceManager: VoiceManager()
+            )
+        )
     }
 }

@@ -2,7 +2,14 @@
 //  VoiceSessionMode.swift
 //  CatchAndCall
 //
-//  Created by Dwayne Brame on 2026-01-10.
+//  Defines the high-level voice session types.
 //
 
 import Foundation
+
+enum VoiceSessionMode {
+    case practice
+    case funday
+    case tournament
+}
+

@@ -10,6 +10,7 @@
 
 import SwiftUI
 import Foundation
+import Combine
 internal import _LocationEssentials
 
 // MARK: - Formatting & Mapping Helpers
@@ -36,7 +37,7 @@ private struct LbsDisplayRow: Identifiable, Equatable {
 
 struct CatchEntryTournamentLbsView: View {
     
-    @StateObject private var voiceCoordinator =
+private var voiceCoordinator =
         VoiceSessionCoordinator(voiceManager: VoiceManager())
     
     @AppStorage("voiceEnabled") private var voiceEnabled = true
@@ -146,29 +147,66 @@ struct CatchEntryTournamentLbsView: View {
             )
         }
         
-        
-        .onAppear {
+       /* .onAppear {
             print("🎣 Tournament Lbs View appeared")
-            // Always refresh data
             refreshFromDB()
+
+            guard settings.voiceControlEnabled else { return }
+            guard settings.dayType == "tournament" else { return }
+
+            voiceCoordinator.startTournamentSession()
         }
+        
         .onDisappear {
-            VoiceControlManager.shared.stop()
+            voiceCoordinator.endSession(reason: "view disappeared")
         }
+
 
         .onReceive(NotificationCenter.default.publisher(for: .remotePlayPausePressed)) { _ in
             guard settings.voiceControlEnabled else { return }
             guard !showAdd, editingItem == nil else { return }   // don’t talk over sheets
             voiceCoordinator.startTournamentSession()
         }
-
+        */
+        
         // Data flow
         .onChange(of: showAdd) { isOpen in if !isOpen { refreshFromDB() } }
         .onChange(of: settings.tournamentLimit) { _ in maybeBlinkOnChange() }
         .onChange(of: topN.map { $0.id }) { _ in maybeBlinkOnChange() }
-        .voiceEnabledCatchEntry {voiceCoordinator.startTournamentSession()}
+        //.voiceEnabledCatchEntry {voiceCoordinator.startTournamentSession()}
+        .overlay(voiceWiring())
+
     }
 
+    @ViewBuilder
+    private func voiceWiring() -> some View {
+        EmptyView()
+            .onAppear {
+                print("🎣 Tournament Lbs View appeared")
+                refreshFromDB()
+
+                guard settings.voiceControlEnabled else { return }
+                guard settings.dayType == "tournament" else { return }
+
+                voiceCoordinator.startSession(mode: .tournament)
+
+            }
+            .onDisappear {
+                voiceCoordinator.endSession(reason: "view disappeared")
+            }
+            .onReceive(
+                NotificationCenter.default.publisher(for: .remotePlayPausePressed)
+            ) { _ in
+                guard settings.voiceControlEnabled else { return }
+                guard !showAdd, editingItem == nil else { return }
+                voiceCoordinator.startSession(mode: .tournament)
+
+            }
+            .voiceEnabledCatchEntry {
+                voiceCoordinator.startSession(mode: .tournament)
+
+            }
+    }
 
     // MARK: Sections
     
