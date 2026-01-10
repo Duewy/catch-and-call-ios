@@ -201,25 +201,13 @@ final class VoiceManager: ObservableObject {
     }
 
     // MARK: - Audio Session
-    
+
+    /// VoiceManager does NOT own AVAudioSession configuration.
+    /// Audio session ownership lives in VoiceSessionManager.
     private func configureAudioSession() throws {
+        VoiceSessionManager.shared.ensureAudioSessionActive()
+        // Optional: you can still log the route for debugging.
         let session = AVAudioSession.sharedInstance()
-
-        try session.setCategory(
-            .playAndRecord,
-            mode: .voiceChat,
-            options: [
-                .allowBluetoothHFP    // ✅ correct, non-deprecated
-            ]
-        )
-
-        // 🔑 Bluetooth HFP microphones are 16 kHz mono
-        try session.setPreferredSampleRate(16_000)
-
-        try session.setActive(true, options: .notifyOthersOnDeactivation)
-
-        print("🎚️ audio session activated")
-        print("🎤 available inputs:", session.availableInputs ?? [])
         print("🎧 current route:", session.currentRoute)
     }
 
