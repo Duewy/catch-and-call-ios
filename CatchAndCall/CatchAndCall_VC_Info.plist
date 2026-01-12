@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Tracking requires GPS location logging</string>
+	<key>CFBundleExecutable</key>
+	<string></string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Voice Commands and Voice Training requires speech recongition </string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Voice Commands and Voice Training requires microphone access --- Voice Control requires access to the microphone to record catches hands-free.</string>
+	<key>APP_EDITION</key>
+	<string>pro_vcc</string>
+	<key>CFBundleIdentifier</key>
+	<string></string>
+	<key>NSCameraUsageDesctription</key>
+	<string>Take photos of your catches</string>
+	<key>NSPhotoLibraryAddUsageDescription
+</key>
+	<string>Save catch photos to library</string>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<true/>
+		<key>UIApplicationSupportsTabbedSceneCollection</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict/>
+	</dict>
+</dict>
+</plist>

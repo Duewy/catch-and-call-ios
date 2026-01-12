@@ -8,11 +8,106 @@
 
 /* Begin PBXFileReference section */
 		652DA3162F154FA3003E7E52 /* CatchAndCall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatchAndCall.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		652DA5232F1551B7003E7E52 /* CatchAndCall_VC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatchAndCall_VC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		652DA5242F1551B7003E7E52 /* Exceptions for "CatchAndCall" folder in "CatchAndCall_VC" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				App/CatchAndCallApp.swift,
+				Assets.xcassets,
+				CatchAndCall_VC_Info.plist,
+				ContentView.swift,
+				Database/Core/DatabaseManager.swift,
+				Database/Data/LengthData.swift,
+				Database/Data/MapData.swift,
+				Database/Data/PhotoData.swift,
+				Database/Data/WeightData.swift,
+				Database/Helpers/ClearOnEditTextField.swift,
+				Database/Helpers/DatabaseHelpers.swift,
+				Database/Helpers/MeasureHelpers.swift,
+				Database/Models/CatchItem.swift,
+				Database/Models/MapQueryFilters.swift,
+				Database/Models/PhotoRecord.swift,
+				Info.plist,
+				Services/LocationService.swift,
+				Stores/SettingsStore.swift,
+				Utils/Species/ImagePicker.swift,
+				Utils/Species/SpeciesImages.swift,
+				Utils/Species/SpeciesStorage.swift,
+				Utils/Species/SpeciesUtils.swift,
+				Utils/Species/UserSortingSpeciesListView.swift,
+				Utils/Species/UserSpeciesCatalogView.swift,
+				Utils/UserSelectedClipColors.swift,
+				Utils/Voice/BluetoothValidation.swift,
+				Utils/Voice/FunDayVoiceHandler.swift,
+				Utils/Voice/PracticePhrase.swift,
+				Utils/Voice/PracticeProgress.swift,
+				Utils/Voice/PractieVoiceHandler.swift,
+				Utils/Voice/RemoteButtonManager.swift,
+				Utils/Voice/RemoteControlContainer.swift,
+				Utils/Voice/RemoteControlHost.swift,
+				Utils/Voice/SilentAudioAnchor.swift,
+				Utils/Voice/SpeechOutputService.swift,
+				Utils/Voice/SpeechService.swift,
+				Utils/Voice/TournamentVoiceHandler.swift,
+				Utils/Voice/VoiceControlManager.swift,
+				Utils/Voice/VoiceEnabledCatchEntry.swift,
+				Utils/Voice/VoiceFlowHandler.swift,
+				Utils/Voice/VoiceManager.swift,
+				Utils/Voice/VoiceParser.swift,
+				Utils/Voice/VoicePhraseList.swift,
+				Utils/Voice/VoiceSessionCoordinator.swift,
+				Utils/Voice/VoiceSessionManager.swift,
+				Utils/Voice/VoiceSessionMode.swift,
+				ViewModels/CatchesViewModel.swift,
+				Views/CatchEntry/FunDay/CatchEntryCentimetersView.swift,
+				Views/CatchEntry/FunDay/CatchEntryInches.swift,
+				Views/CatchEntry/FunDay/CatchEntryKgsView.swift,
+				Views/CatchEntry/FunDay/CatchEntryLbsOzView.swift,
+				Views/CatchEntry/FunDay/CatchEntryPoundsView.swift,
+				Views/CatchEntry/Tournament/CatchEntryTournyCentimetersView.swift,
+				Views/CatchEntry/Tournament/CatchEntryTournyInchesView.swift,
+				Views/CatchEntry/Tournament/CatchEntryTournyKgsView.swift,
+				Views/CatchEntry/Tournament/CatchEntryTournyLbsView.swift,
+				Views/CatchEntry/Tournament/CatchEntryTournyPoundsView.swift,
+				Views/MainMenuView.swift,
+				Views/Map/MapCatchLocationsView.swift,
+				Views/Map/MapQuerySheetView.swift,
+				Views/Map/MapShareSheetView.swift,
+				Views/Set_Up/SetUpView.swift,
+				Views/Shared/AppColors.swift,
+				Views/Shared/FilledButtonStyles.swift,
+				Views/Shared/NumberPad.swift,
+				Views/Shared/ToastBanner.swift,
+				Views/SplashView.swift,
+				Views/Today/TodayListView.swift,
+				Views/User_How_To/HelpCenterView.swift,
+				Views/User_How_To/HelpPdfView.swift,
+				Views/VoiceTraining/VCCHomeView.swift,
+				Views/VoiceTraining/VCCLearnView.swift,
+				Views/VoiceTraining/VCCPracticeSelectView.swift,
+				Views/VoiceTraining/VCCPracticeSessionView.swift,
+			);
+			target = 652DA51C2F1551B7003E7E52 /* CatchAndCall_VC */;
+		};
+		652DA5252F155BBC003E7E52 /* Exceptions for "CatchAndCall" folder in "CatchAndCall" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 652DA3152F154FA3003E7E52 /* CatchAndCall */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		652DA3182F154FA3003E7E52 /* CatchAndCall */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				652DA5252F155BBC003E7E52 /* Exceptions for "CatchAndCall" folder in "CatchAndCall" target */,
+				652DA5242F1551B7003E7E52 /* Exceptions for "CatchAndCall" folder in "CatchAndCall_VC" target */,
+			);
 			path = CatchAndCall;
 			sourceTree = "<group>";
 		};
@@ -20,6 +115,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		652DA3132F154FA3003E7E52 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		652DA51E2F1551B7003E7E52 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -41,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				652DA3162F154FA3003E7E52 /* CatchAndCall.app */,
+				652DA5232F1551B7003E7E52 /* CatchAndCall_VC.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -68,6 +171,28 @@
 			);
 			productName = CatchAndCall;
 			productReference = 652DA3162F154FA3003E7E52 /* CatchAndCall.app */;
+			productType = "com.apple.product-type.application";
+		};
+		652DA51C2F1551B7003E7E52 /* CatchAndCall_VC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 652DA5202F1551B7003E7E52 /* Build configuration list for PBXNativeTarget "CatchAndCall_VC" */;
+			buildPhases = (
+				652DA51D2F1551B7003E7E52 /* Sources */,
+				652DA51E2F1551B7003E7E52 /* Frameworks */,
+				652DA51F2F1551B7003E7E52 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				652DA3182F154FA3003E7E52 /* CatchAndCall */,
+			);
+			name = CatchAndCall_VC;
+			packageProductDependencies = (
+			);
+			productName = CatchAndCall;
+			productReference = 652DA5232F1551B7003E7E52 /* CatchAndCall_VC.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -100,6 +225,7 @@
 			projectRoot = "";
 			targets = (
 				652DA3152F154FA3003E7E52 /* CatchAndCall */,
+				652DA51C2F1551B7003E7E52 /* CatchAndCall_VC */,
 			);
 		};
 /* End PBXProject section */
@@ -112,10 +238,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		652DA51F2F1551B7003E7E52 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		652DA3122F154FA3003E7E52 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		652DA51D2F1551B7003E7E52 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -250,28 +390,36 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 22GS5HST6Y;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CatchAndCall/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Catch & Call Tracker";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bramestorm.CatchAndCall;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -281,28 +429,116 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 22GS5HST6Y;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CatchAndCall/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Catch & Call Tracker";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bramestorm.CatchAndCall;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		652DA5212F1551B7003E7E52 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 22GS5HST6Y;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Catch & Call Tracker Pro-VC";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bramestorm.CatchAndCall.VC;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		652DA5222F1551B7003E7E52 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 22GS5HST6Y;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Catch & Call Tracker Pro-VC";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bramestorm.CatchAndCall.VC;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -323,6 +559,15 @@
 			buildConfigurations = (
 				652DA3222F154FA4003E7E52 /* Debug */,
 				652DA3232F154FA4003E7E52 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		652DA5202F1551B7003E7E52 /* Build configuration list for PBXNativeTarget "CatchAndCall_VC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				652DA5212F1551B7003E7E52 /* Debug */,
+				652DA5222F1551B7003E7E52 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

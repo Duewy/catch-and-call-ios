@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "catch_and_call_tracker_pro_vc_logo 1.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "catch_and_call_tracker_pro_vc_logo.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "catch_and_call_tracker_pro_vc_logo 2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
